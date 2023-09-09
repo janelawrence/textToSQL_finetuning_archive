@@ -1,0 +1,147 @@
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release 23.03 (build 55416458)
+PyTorch Version 2.0.0a0+1767026
+
+Container image Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+Copyright (c) 2014-2023 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+Ready to finetune
+Loading Spider Dataset
+Downloading and preparing dataset spider/spider to /var/lib/condor/execute/slot1/dir_8248/.cache/huggingface/datasets/spider/spider/1.0.0/4e5143d825a3895451569c8b9b55432b91a4bc2d04d390376c950837f4680daa...
+Dataset spider downloaded and prepared to /var/lib/condor/execute/slot1/dir_8248/.cache/huggingface/datasets/spider/spider/1.0.0/4e5143d825a3895451569c8b9b55432b91a4bc2d04d390376c950837f4680daa. Subsequent calls will reuse this data.
+Spider Dataset Loaded
+Loading Tokenizer...
+Model_name:  google/flan-t5-large
+Tokenizer Loaded...
+max model length  512
+Preprocess Train and Validation dataset...
+Input:  Translate text to SQL:  text: Which employees do not destroy any document? Find their employee ids. db_id: cre_Doc_Tracking_DB schema: num_tables: 8 (table_name: Ref_Document_Types; table_cols: Document_Type_Code,Document_Type_Name,Document_Type_Description)(table_name: Ref_Calendar; table_cols: Calendar_Date,Day_Number)(table_name: Ref_Locations; table_cols: Location_Code,Location_Name,Location_Description)(table_name: Roles; table_cols: Role_Code,Role_Name,Role_Description)(table_name: All_Documents; table_cols: Document_ID,Date_Stored,Document_Type_Code,Document_Name,Document_Description,Other_Details)(table_name: Employees; table_cols: Employee_ID,Role_Code,Employee_Name,Gender_MFU,Date_of_Birth,Other_Details)(table_name: Document_Locations; table_cols: Document_ID,Location_Code,Date_in_Location_From,Date_in_Locaton_To)(table_name: Documents_to_be_Destroyed; table_cols: Document_ID,Destruction_Authorised_by_Employee_ID,Destroyed_by_Employee_ID,Planned_Destruction_Date,Actual_Destruction_Date,Other_Details) Tables could be joined by following rules: 1. All_Documents and Ref_Calendar could be joined on columns Date_Stored of All_Documents and Calendar_Date of Ref_Calendar
+2. All_Documents and Ref_Document_Types could be joined on column Document_Type_Code
+3. Employees and Roles could be joined on column Role_Code
+4. Document_Locations and All_Documents could be joined on column Document_ID
+5. Document_Locations and Ref_Calendar could be joined on columns Date_in_Locaton_To of Document_Locations and Calendar_Date of Ref_Calendar
+6. Document_Locations and Ref_Calendar could be joined on columns Date_in_Location_From of Document_Locations and Calendar_Date of Ref_Calendar
+7. Document_Locations and Ref_Locations could be joined on column Location_Code
+8. Documents_to_be_Destroyed and All_Documents could be joined on column Document_ID
+9. Documents_to_be_Destroyed and Ref_Calendar could be joined on columns Actual_Destruction_Date of Documents_to_be_Destroyed and Calendar_Date of Ref_Calendar
+10. Documents_to_be_Destroyed and Ref_Calendar could be joined on columns Planned_Destruction_Date of Documents_to_be_Destroyed and Calendar_Date of Ref_Calendar
+11. Documents_to_be_Destroyed and Employees could be joined on columns Destruction_Authorised_by_Employee_ID of Documents_to_be_Destroyed and Employee_ID of Employees
+12. Documents_to_be_Destroyed and Employees could be joined on columns Destroyed_by_Employee_ID of Documents_to_be_Destroyed and Employee_ID of Employees
+ 
+Output:  SELECT employee_id FROM Employees EXCEPT SELECT Destroyed_by_Employee_ID FROM Documents_to_be_destroyed
+Input:  Translate text to SQL:  text: List the name of the aircraft that has been named winning aircraft the most number of times. db_id: aircraft schema: num_tables: 5 (table_name: pilot; table_cols: Pilot_Id,Name,Age)(table_name: aircraft; table_cols: Aircraft_ID,Aircraft,Description,Max_Gross_Weight,Total_disk_area,Max_disk_Loading)(table_name: match; table_cols: Round,Location,Country,Date,Fastest_Qualifying,Winning_Pilot,Winning_Aircraft)(table_name: airport; table_cols: Airport_ID,Airport_Name,Total_Passengers,%_Change_2007,International_Passengers,Domestic_Passengers,Transit_Passengers,Aircraft_Movements,Freight_Metric_Tonnes)(table_name: airport_aircraft; table_cols: ID,Airport_ID,Aircraft_ID) Tables could be joined by following rules: 1. match and pilot could be joined on columns Winning_Pilot of match and Pilot_Id of pilot
+2. match and aircraft could be joined on columns Winning_Aircraft of match and Aircraft_ID of aircraft
+3. airport_aircraft and aircraft could be joined on column Aircraft_ID
+4. airport_aircraft and airport could be joined on column Airport_ID
+ 
+Output:  SELECT T1.Aircraft FROM aircraft AS T1 JOIN MATCH AS T2 ON T1.Aircraft_ID  =  T2.Winning_Aircraft GROUP BY T2.Winning_Aircraft ORDER BY COUNT(*) DESC LIMIT 1
+Input:  Translate text to SQL:  text: List every album ordered by album title in ascending order. db_id: store_1 schema: num_tables: 12 (table_name: artists; table_cols: id,name)(table_name: sqlite_sequence; table_cols: name,seq)(table_name: albums; table_cols: id,title,artist_id)(table_name: employees; table_cols: id,last_name,first_name,title,reports_to,birth_date,hire_date,address,city,state,country,postal_code,phone,fax,email)(table_name: customers; table_cols: id,first_name,last_name,company,address,city,state,country,postal_code,phone,fax,email,support_rep_id)(table_name: genres; table_cols: id,name)(table_name: invoices; table_cols: id,customer_id,invoice_date,billing_address,billing_city,billing_state,billing_country,billing_postal_code,total)(table_name: media_types; table_cols: id,name)(table_name: tracks; table_cols: id,name,album_id,media_type_id,genre_id,composer,milliseconds,bytes,unit_price)(table_name: invoice_lines; table_cols: id,invoice_id,track_id,unit_price,quantity)(table_name: playlists; table_cols: id,name)(table_name: playlist_tracks; table_cols: playlist_id,track_id) Tables could be joined by following rules: 1. albums and artists could be joined on columns artist_id of albums and id of artists
+2. employees and employees could be joined on columns reports_to of employees and id of employees
+3. customers and employees could be joined on columns support_rep_id of customers and id of employees
+4. invoices and customers could be joined on columns customer_id of invoices and id of customers
+5. tracks and media_types could be joined on columns media_type_id of tracks and id of media_types
+6. tracks and genres could be joined on columns genre_id of tracks and id of genres
+7. tracks and albums could be joined on columns album_id of tracks and id of albums
+8. invoice_lines and tracks could be joined on columns track_id of invoice_lines and id of tracks
+9. invoice_lines and invoices could be joined on columns invoice_id of invoice_lines and id of invoices
+10. playlist_tracks and tracks could be joined on columns track_id of playlist_tracks and id of tracks
+11. playlist_tracks and playlists could be joined on columns playlist_id of playlist_tracks and id of playlists
+ 
+Output:  SELECT title FROM albums ORDER BY title;
+Input:  Translate text to SQL:  text: What are the distinct first names of the students who have vice president votes and reside in a city whose city code is not PIT? db_id: voter_2 schema: num_tables: 2 (table_name: Student; table_cols: StuID,LName,Fname,Age,Sex,Major,Advisor,city_code)(table_name: Voting_record; table_cols: StuID,Registration_Date,Election_Cycle,President_Vote,Vice_President_Vote,Secretary_Vote,Treasurer_Vote,Class_President_Vote,Class_Senator_Vote) Tables could be joined by following rules: 1. Voting_record and Student could be joined on columns Class_Senator_Vote of Voting_record and StuID of Student
+2. Voting_record and Student could be joined on columns Class_President_Vote of Voting_record and StuID of Student
+3. Voting_record and Student could be joined on columns Treasurer_Vote of Voting_record and StuID of Student
+4. Voting_record and Student could be joined on columns Secretary_Vote of Voting_record and StuID of Student
+5. Voting_record and Student could be joined on columns Vice_President_Vote of Voting_record and StuID of Student
+6. Voting_record and Student could be joined on columns President_Vote of Voting_record and StuID of Student
+7. Voting_record and Student could be joined on column StuID
+ 
+Output:  SELECT DISTINCT T1.Fname FROM STUDENT AS T1 JOIN VOTING_RECORD AS T2 ON T1.StuID  =  T2.VICE_PRESIDENT_Vote EXCEPT SELECT DISTINCT Fname FROM STUDENT WHERE city_code  =  "PIT"
+Input:  Translate text to SQL:  text: Find the number of distinct room types available. db_id: hospital_1 schema: num_tables: 15 (table_name: Physician; table_cols: EmployeeID,Name,Position,SSN)(table_name: Department; table_cols: DepartmentID,Name,Head)(table_name: Affiliated_With; table_cols: Physician,Department,PrimaryAffiliation)(table_name: Procedures; table_cols: Code,Name,Cost)(table_name: Trained_In; table_cols: Physician,Treatment,CertificationDate,CertificationExpires)(table_name: Patient; table_cols: SSN,Name,Address,Phone,InsuranceID,PCP)(table_name: Nurse; table_cols: EmployeeID,Name,Position,Registered,SSN)(table_name: Appointment; table_cols: AppointmentID,Patient,PrepNurse,Physician,Start,End,ExaminationRoom)(table_name: Medication; table_cols: Code,Name,Brand,Description)(table_name: Prescribes; table_cols: Physician,Patient,Medication,Date,Appointment,Dose)(table_name: Block; table_cols: BlockFloor,BlockCode)(table_name: Room; table_cols: RoomNumber,RoomType,BlockFloor,BlockCode,Unavailable)(table_name: On_Call; table_cols: Nurse,BlockFloor,BlockCode,OnCallStart,OnCallEnd)(table_name: Stay; table_cols: StayID,Patient,Room,StayStart,StayEnd)(table_name: Undergoes; table_cols: Patient,Procedures,Stay,DateUndergoes,Physician,AssistingNurse) Tables could be joined by following rules: 1. Department and Physician could be joined on columns Head of Department and EmployeeID of Physician
+2. Affiliated_With and Department could be joined on columns Department of Affiliated_With and DepartmentID of Department
+3. Affiliated_With and Physician could be joined on columns Physician of Affiliated_With and EmployeeID of Physician
+4. Trained_In and Procedures could be joined on columns Treatment of Trained_In and Code of Procedures
+5. Trained_In and Physician could be joined on columns Physician of Trained_In and EmployeeID of Physician
+6. Patient and Physician could be joined on columns PCP of Patient and EmployeeID of Physician
+7. Appointment and Physician could be joined on columns Physician of Appointment and EmployeeID of Physician
+8. Appointment and Nurse could be joined on columns PrepNurse of Appointment and EmployeeID of Nurse
+9. Appointment and Patient could be joined on columns Patient of Appointment and SSN of Patient
+10. Prescribes and Appointment could be joined on columns Appointment of Prescribes and AppointmentID of Appointment
+11. Prescribes and Medication could be joined on columns Medication of Prescribes and Code of Medication
+12. Prescribes and Patient could be joined on columns Patient of Prescribes and SSN of Patient
+13. Prescribes and Physician could be joined on columns Physician of Prescribes and EmployeeID of Physician
+14. Room and Block could be joined on column BlockFloor
+15. Room and Block could be joined on column BlockCode
+16. On_Call and Block could be joined on column BlockFloor
+17. On_Call and Block could be joined on column BlockCode
+18. On_Call and Nurse could be joined on columns Nurse of On_Call and EmployeeID of Nurse
+19. Stay and Room could be joined on columns Room of Stay and RoomNumber of Room
+20. Stay and Patient could be joined on columns Patient of Stay and SSN of Patient
+21. Undergoes and Nurse could be joined on columns AssistingNurse of Undergoes and EmployeeID of Nurse
+22. Undergoes and Physician could be joined on columns Physician of Undergoes and EmployeeID of Physician
+23. Undergoes and Stay could be joined on columns Stay of Undergoes and StayID of Stay
+24. Undergoes and Procedures could be joined on columns Procedures of Undergoes and Code of Procedures
+25. Undergoes and Patient could be joined on columns Patient of Undergoes and SSN of Patient
+ 
+Output:  SELECT count(DISTINCT roomtype) FROM room
+Input:  Translate text to SQL:  text: Return the average, maximum, and minimum budgets in millions for movies made before the year 2000. db_id: culture_company schema: num_tables: 3 (table_name: book_club; table_cols: book_club_id,Year,Author_or_Editor,Book_Title,Publisher,Category,Result)(table_name: movie; table_cols: movie_id,Title,Year,Director,Budget_million,Gross_worldwide)(table_name: culture_company; table_cols: Company_name,Type,Incorporated_in,Group_Equity_Shareholding,book_club_id,movie_id) Tables could be joined by following rules: 1. culture_company and movie could be joined on column movie_id
+2. culture_company and book_club could be joined on column book_club_id
+ 
+Output:  SELECT avg(budget_million) ,  max(budget_million) ,  min(budget_million) FROM movie WHERE YEAR  <  2000
+Input:  Translate text to SQL:  text: Which film has the most copies in the inventory? List both title and id. db_id: sakila_1 schema: num_tables: 16 (table_name: actor; table_cols: actor_id,first_name,last_name,last_update)(table_name: address; table_cols: address_id,address,address2,district,city_id,postal_code,phone,last_update)(table_name: category; table_cols: category_id,name,last_update)(table_name: city; table_cols: city_id,city,country_id,last_update)(table_name: country; table_cols: country_id,country,last_update)(table_name: customer; table_cols: customer_id,store_id,first_name,last_name,email,address_id,active,create_date,last_update)(table_name: film; table_cols: film_id,title,description,release_year,language_id,original_language_id,rental_duration,rental_rate,length,replacement_cost,rating,special_features,last_update)(table_name: film_actor; table_cols: actor_id,film_id,last_update)(table_name: film_category; table_cols: film_id,category_id,last_update)(table_name: film_text; table_cols: film_id,title,description)(table_name: inventory; table_cols: inventory_id,film_id,store_id,last_update)(table_name: language; table_cols: language_id,name,last_update)(table_name: payment; table_cols: payment_id,customer_id,staff_id,rental_id,amount,payment_date,last_update)(table_name: rental; table_cols: rental_id,rental_date,inventory_id,customer_id,return_date,staff_id,last_update)(table_name: staff; table_cols: staff_id,first_name,last_name,address_id,picture,email,store_id,active,username,password,last_update)(table_name: store; table_cols: store_id,manager_staff_id,address_id,last_update) Tables could be joined by following rules: 1. address and city could be joined on column city_id
+2. city and country could be joined on column country_id
+3. customer and store could be joined on column store_id
+4. customer and address could be joined on column address_id
+5. film and language could be joined on columns original_language_id of film and language_id of language
+6. film and language could be joined on column language_id
+7. film_actor and film could be joined on column film_id
+8. film_actor and actor could be joined on column actor_id
+9. film_category and category could be joined on column category_id
+10. film_category and film could be joined on column film_id
+11. inventory and film could be joined on column film_id
+12. inventory and store could be joined on column store_id
+13. payment and staff could be joined on column staff_id
+14. payment and customer could be joined on column customer_id
+15. payment and rental could be joined on column rental_id
+16. rental and customer could be joined on column customer_id
+17. rental and inventory could be joined on column inventory_id
+18. rental and staff could be joined on column staff_id
+19. staff and address could be joined on column address_id
+20. store and address could be joined on column address_id
+21. store and staff could be joined on columns manager_staff_id of store and staff_id of staff
+ 
+Output:  SELECT T1.title ,  T1.film_id FROM film AS T1 JOIN inventory AS T2 ON T1.film_id  =  T2.film_id GROUP BY T1.film_id ORDER BY count(*) DESC LIMIT 1
+Input:  Translate text to SQL:  text: How many singers do we have? db_id: concert_singer schema: num_tables: 4 (table_name: stadium; table_cols: Stadium_ID,Location,Name,Capacity,Highest,Lowest,Average)(table_name: singer; table_cols: Singer_ID,Name,Country,Song_Name,Song_release_year,Age,Is_male)(table_name: concert; table_cols: concert_ID,concert_Name,Theme,Stadium_ID,Year)(table_name: singer_in_concert; table_cols: concert_ID,Singer_ID) Tables could be joined by following rules: 1. concert and stadium could be joined on column Stadium_ID
+2. singer_in_concert and singer could be joined on column Singer_ID
+3. singer_in_concert and concert could be joined on column concert_ID
+ 
+Output:  SELECT count(*) FROM singer
+Input:  Translate text to SQL:  text: How many singers are there? db_id: singer schema: num_tables: 2 (table_name: singer; table_cols: Singer_ID,Name,Birth_Year,Net_Worth_Millions,Citizenship)(table_name: song; table_cols: Song_ID,Title,Singer_ID,Sales,Highest_Position) Tables could be joined by following rules: 1. song and singer could be joined on column Singer_ID
+ 
+Output:  SELECT count(*) FROM singer
+Finished preprocessing data...
+Loading model...
+Finished loading model...
+Starting training...

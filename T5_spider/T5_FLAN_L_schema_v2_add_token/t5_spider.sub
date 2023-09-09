@@ -1,0 +1,38 @@
+# train T5 .sub
+
+universe = docker
+docker_image = amztc34283/oh_man:latest 
+log = ./output/epoch_10_t5_flan_large_try2_$(Cluster).log
+
+# If building on CentOS 8 (Recommended)
+transfer_input_files = flan_t5_spider.py, t5_spider.sh, tables.json
+#
+
+executable = t5_spider.sh
+arguments = $(Process)
+output = ./output/epoch_10_t5_flan_large_try2_$(Cluster)_$(Process).out
+error = ./output/epoch_10_t5_flan_large_try2_$(Cluster)_$(Process).err
+
+#
+# Specify that HTCondor should transfer files to and from the
+#  computer where each job runs. The last of these lines *would* be
+#  used if there were any other files needed for the executable to use.
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+
+# Tell HTCondor what amount of compute resources
+#  each job will need on the computer where it runs.
++WantGPULab = True
++GPUJobLength = "medium"
+
+request_gpus = 2
+request_cpus = 2
+request_memory = 500GB
+request_disk = 1TB
+require_gpus = (Capability >= 8.0) && (GlobalMemoryMb > 40000)
+# 10 epoch exeeds 60G AND 100GB above
+# 5 epoch exceeds 128 GB request_disk
+#
+# Tell HTCondor to run 3 instances of our job:
+queue 1

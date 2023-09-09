@@ -1,0 +1,87 @@
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release 23.03 (build 55416458)
+PyTorch Version 2.0.0a0+1767026
+
+Container image Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+Copyright (c) 2014-2023 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+Ready to finetune
+Loading Spider Dataset
+Downloading and preparing dataset spider/spider to /var/lib/condor/execute/slot1/dir_55660/.cache/huggingface/datasets/spider/spider/1.0.0/4e5143d825a3895451569c8b9b55432b91a4bc2d04d390376c950837f4680daa...
+Dataset spider downloaded and prepared to /var/lib/condor/execute/slot1/dir_55660/.cache/huggingface/datasets/spider/spider/1.0.0/4e5143d825a3895451569c8b9b55432b91a4bc2d04d390376c950837f4680daa. Subsequent calls will reuse this data.
+Spider Dataset Loaded
+Loading Tokenizer...
+Model_name:  google/flan-t5-large
+Tokenizer Loaded...
+max model length  512
+Preprocess Train and Validation dataset...
+Input:  Translate text to SQL:  text: Find the male friend of Alice whose job is a doctor? db_id: network_2 schema: num_tables: 2 (table_name: Person; table_cols: name,age,city,gender,job)(table_name: PersonFriend; table_cols: name,friend,year) Tables could be joined by following rules: 1. PersonFriend and Person could be joined on columns friend of PersonFriend and name of Person
+2. PersonFriend and Person could be joined on column name
+ 
+Output:  SELECT T2.friend FROM Person AS T1 JOIN PersonFriend AS T2 ON T1.name  =  T2.friend WHERE T2.name  =  'Alice' AND T1.gender  =  'male' AND T1.job  =  'doctor'
+Input:  Translate text to SQL:  text: List the name and country of origin for all singers who have produced songs with rating above 9. db_id: music_1 schema: num_tables: 4 (table_name: genre; table_cols: g_name,rating,most_popular_in)(table_name: artist; table_cols: artist_name,country,gender,preferred_genre)(table_name: files; table_cols: f_id,artist_name,file_size,duration,formats)(table_name: song; table_cols: song_name,artist_name,country,f_id,genre_is,rating,languages,releasedate,resolution) Tables could be joined by following rules: 1. artist and genre could be joined on columns preferred_genre of artist and g_name of genre
+2. files and artist could be joined on column artist_name
+3. song and genre could be joined on columns genre_is of song and g_name of genre
+4. song and files could be joined on column f_id
+5. song and artist could be joined on column artist_name
+ 
+Output:  SELECT DISTINCT T1.artist_name ,  T1.country FROM artist AS T1 JOIN song AS T2 ON T1.artist_name  =  T2.artist_name WHERE T2.rating  >  9
+Input:  Translate text to SQL:  text: Which game type has most number of games? db_id: game_1 schema: num_tables: 4 (table_name: Student; table_cols: StuID,LName,Fname,Age,Sex,Major,Advisor,city_code)(table_name: Video_Games; table_cols: GameID,GName,GType)(table_name: Plays_Games; table_cols: StuID,GameID,Hours_Played)(table_name: SportsInfo; table_cols: StuID,SportName,HoursPerWeek,GamesPlayed,OnScholarship) Tables could be joined by following rules: 1. Plays_Games and Student could be joined on column StuID
+2. Plays_Games and Video_Games could be joined on column GameID
+3. SportsInfo and Student could be joined on column StuID
+ 
+Output:  SELECT gtype FROM Video_games GROUP BY gtype ORDER BY count(*) DESC LIMIT 1
+Input:  Translate text to SQL:  text: For each director, return the director's name together with the title of the movie they directed that received the highest rating among all of their movies, and the value of that rating. Ignore movies whose director is NULL. db_id: movie_1 schema: num_tables: 3 (table_name: Movie; table_cols: mID,title,year,director)(table_name: Reviewer; table_cols: rID,name)(table_name: Rating; table_cols: rID,mID,stars,ratingDate) Tables could be joined by following rules: 1. Rating and Reviewer could be joined on column rID
+2. Rating and Movie could be joined on column mID
+ 
+Output:  SELECT T2.title ,  T1.stars ,  T2.director ,  max(T1.stars) FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID WHERE director != "null" GROUP BY director
+Input:  Translate text to SQL:  text: Find the latest logon date of the students whose family name is "Jaskolski" or "Langosh". db_id: e_learning schema: num_tables: 6 (table_name: Course_Authors_and_Tutors; table_cols: author_id,author_tutor_ATB,login_name,password,personal_name,middle_name,family_name,gender_mf,address_line_1)(table_name: Students; table_cols: student_id,date_of_registration,date_of_latest_logon,login_name,password,personal_name,middle_name,family_name)(table_name: Subjects; table_cols: subject_id,subject_name)(table_name: Courses; table_cols: course_id,author_id,subject_id,course_name,course_description)(table_name: Student_Course_Enrolment; table_cols: registration_id,student_id,course_id,date_of_enrolment,date_of_completion)(table_name: Student_Tests_Taken; table_cols: registration_id,date_test_taken,test_result) Tables could be joined by following rules: 1. Courses and Subjects could be joined on column subject_id
+2. Courses and Course_Authors_and_Tutors could be joined on column author_id
+3. Student_Course_Enrolment and Students could be joined on column student_id
+4. Student_Course_Enrolment and Courses could be joined on column course_id
+5. Student_Tests_Taken and Student_Course_Enrolment could be joined on column registration_id
+ 
+Output:  SELECT date_of_latest_logon FROM Students WHERE family_name  =  "Jaskolski" OR family_name  =  "Langosh"
+Input:  Translate text to SQL:  text: What is the number of flights? db_id: flight_1 schema: num_tables: 4 (table_name: flight; table_cols: flno,origin,destination,distance,departure_date,arrival_date,price,aid)(table_name: aircraft; table_cols: aid,name,distance)(table_name: employee; table_cols: eid,name,salary)(table_name: certificate; table_cols: eid,aid) Tables could be joined by following rules: 1. flight and aircraft could be joined on column aid
+2. certificate and aircraft could be joined on column aid
+3. certificate and employee could be joined on column eid
+ 
+Output:  SELECT count(*) FROM Flight
+Input:  Translate text to SQL:  text: Show all directors. db_id: cinema schema: num_tables: 3 (table_name: film; table_cols: Film_ID,Rank_in_series,Number_in_season,Title,Directed_by,Original_air_date,Production_code)(table_name: cinema; table_cols: Cinema_ID,Name,Openning_year,Capacity,Location)(table_name: schedule; table_cols: Cinema_ID,Film_ID,Date,Show_times_per_day,Price) Tables could be joined by following rules: 1. schedule and cinema could be joined on column Cinema_ID
+2. schedule and film could be joined on column Film_ID
+ 
+Output:  SELECT DISTINCT directed_by FROM film
+Input:  Translate text to SQL:  text: How many singers do we have? db_id: concert_singer schema: num_tables: 4 (table_name: stadium; table_cols: Stadium_ID,Location,Name,Capacity,Highest,Lowest,Average)(table_name: singer; table_cols: Singer_ID,Name,Country,Song_Name,Song_release_year,Age,Is_male)(table_name: concert; table_cols: concert_ID,concert_Name,Theme,Stadium_ID,Year)(table_name: singer_in_concert; table_cols: concert_ID,Singer_ID) Tables could be joined by following rules: 1. concert and stadium could be joined on column Stadium_ID
+2. singer_in_concert and singer could be joined on column Singer_ID
+3. singer_in_concert and concert could be joined on column concert_ID
+ 
+Output:  SELECT count(*) FROM singer
+Input:  Translate text to SQL:  text: How many singers are there? db_id: singer schema: num_tables: 2 (table_name: singer; table_cols: Singer_ID,Name,Birth_Year,Net_Worth_Millions,Citizenship)(table_name: song; table_cols: Song_ID,Title,Singer_ID,Sales,Highest_Position) Tables could be joined by following rules: 1. song and singer could be joined on column Singer_ID
+ 
+Output:  SELECT count(*) FROM singer
+Finished preprocessing data...
+Loading model...
+Finished loading model...
+Starting training...
