@@ -1,0 +1,179 @@
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release 23.03 (build 55416458)
+PyTorch Version 2.0.0a0+1767026
+
+Container image Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+Copyright (c) 2014-2023 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+trained_tok/
+trained_tok/tokenizer.json
+trained_tok/special_tokens_map.json
+trained_tok/tokenizer_config.json
+Ready to finetune
+Loading WikiSQL Dataset
+Downloading and preparing dataset wikisql/default to /var/lib/condor/execute/slot1/dir_55108/.cache/huggingface/datasets/wikisql/default/0.1.0/7037bfe6a42b1ca2b6ac3ccacba5253b1825d31379e9cc626fc79a620977252d...
+Dataset wikisql downloaded and prepared to /var/lib/condor/execute/slot1/dir_55108/.cache/huggingface/datasets/wikisql/default/0.1.0/7037bfe6a42b1ca2b6ac3ccacba5253b1825d31379e9cc626fc79a620977252d. Subsequent calls will reuse this data.
+Spider Dataset Loaded
+Model_name:  google/flan-t5-base
+Loading Tokenizer...
+Tokenizer Custom Loaded...
+max model length  512
+Preprocess Train and Validation dataset...
+Input:  Translate text to SQL:  text: Tell me what the notes are for South Australia  schema:  num_tables: 1 (table_name: table; table_cols: State/territory,Text/background colour,Format,Current slogan,Current series,Notes) 
+Output:  SELECT 'Notes' FROM table WHERE 'Current slogan' = 'SOUTH AUSTRALIA'
+Input:  Translate text to SQL:  text: What is the number for years 1985-88 schema:  num_tables: 1 (table_name: table; table_cols: Player,No.,Nationality,Position,Years for Jazz,School/Club Team) 
+Output:  SELECT MIN 'No.' FROM table WHERE 'Years for Jazz' = '1985-88'
+Input:  Translate text to SQL:  text: What is the barrel length for a cold model le6921sp? schema:  num_tables: 1 (table_name: table; table_cols: Colt model no.,Name,Stock,Fire control,Rear sight,Forward assist,Barrel length,Barrel profile,Barrel twist,Hand guards,Bayonet Lug,Muzzle device) 
+Output:  SELECT 'Barrel length' FROM table WHERE 'Colt model no.' = 'LE6921SP'
+Input:  Translate text to SQL:  text: what amount of try bonus where the game was won by 11? schema:  num_tables: 1 (table_name: table; table_cols: Club,Played,Won,Drawn,Lost,Points for,Points against,Tries for,Tries against,Try bonus,Losing bonus,Points) 
+Output:  SELECT COUNT 'Try bonus' FROM table WHERE 'Won' = '11'
+Input:  Translate text to SQL:  text: What is the highest value of PF when Ends Lost is 51? schema:  num_tables: 1 (table_name: table; table_cols: Locale,Skip,W,L,PF,PA,Ends Won,Ends Lost,Blank Ends,Stolen Ends,Shot Pct.) 
+Output:  SELECT MAX 'PF' FROM table WHERE 'Ends Lost' = 51
+Input:  Translate text to SQL:  text: How many times is a score for stolen ends recorded for France? schema:  num_tables: 1 (table_name: table; table_cols: Country,Skip,W,L,PF,PA,Ends Won,Ends Lost,Blank Ends,Stolen Ends,Shot %) 
+Output:  SELECT COUNT 'Stolen Ends' FROM table WHERE 'Country' = 'France'
+Input:  Translate text to SQL:  text: How many seasons did "strangled, not stirred" air? schema:  num_tables: 1 (table_name: table; table_cols: No. in series,No. in season,Title,Directed by,Written by,Original air date,Production code) 
+Output:  SELECT COUNT 'No. in season' FROM table WHERE 'Title' = '"Strangled, Not Stirred"'
+Input:  Translate text to SQL:  text: What's team #2 in the round where team $1 is Ilisiakos? schema:  num_tables: 1 (table_name: table; table_cols: Team #1,Agg. score,Team #2,1st leg,2nd leg) 
+Output:  SELECT 'Team #2' FROM table WHERE 'Team #1' = 'Ilisiakos'
+Input:  Translate text to SQL:  text: What is the total of countys where Obama is popular by 35.44%? schema:  num_tables: 1 (table_name: table; table_cols: County,Obama%,Obama#,McCain%,McCain#) 
+Output:  SELECT COUNT 'County' FROM table WHERE 'Obama%' = '35.44%'
+Input:  Translate text to SQL:  text: Who is the head coach for the score of 4-3? schema:  num_tables: 1 (table_name: table; table_cols: Tournament,Conference,Championship Game Opponent,Score,Location,Head Coach) 
+Output:  SELECT 'Head Coach' FROM table WHERE 'Score' = '4-3'
+Input:  Translate text to SQL:  text: How did the game number 50 end? schema:  num_tables: 1 (table_name: table; table_cols: Game,Date,Team,Score,High points,High rebounds,High assists,Location Attendance,Record) 
+Output:  SELECT 'Score' FROM table WHERE 'Game' = 50
+Input:  Translate text to SQL:  text: How many individuals watched the show that had a bbc ranking of 6? schema:  num_tables: 1 (table_name: table; table_cols: Episode no.,Airdate,Viewers,BBC Three weekly ranking,Cable rank) 
+Output:  SELECT COUNT 'Viewers' FROM table WHERE 'BBC Three weekly ranking' = '6'
+Input:  Translate text to SQL:  text: what are all the state/nation where the race number is 36 schema:  num_tables: 1 (table_name: table; table_cols: Position,Race number,Sail number,Yacht,State/country,Yacht type,LOA (Metres),Skipper,Elapsed time d:hh:mm:ss) 
+Output:  SELECT 'State/country' FROM table WHERE 'Race number' = '36'
+Input:  Translate text to SQL:  text: What is the Galician (reintegrationist) word of the Galician (Official) is adeus*? schema:  num_tables: 1 (table_name: table; table_cols: English,Galician ( Official ),Galician ( Reintegrationist ),Portuguese,Spanish) 
+Output:  SELECT 'Galician ( Reintegrationist )' FROM table WHERE 'Galician ( Official )' = 'Adeus*'
+Input:  Translate text to SQL:  text: What is the production code for the episode that had 23.9 million u.s. viewers? schema:  num_tables: 1 (table_name: table; table_cols: No. in series,No. in season,Title,Directed by,Written by,Original air date,Production code,U.S. viewers (millions)) 
+Output:  SELECT 'Production code' FROM table WHERE 'U.S. viewers (millions)' = '23.9'
+Input:  Translate text to SQL:  text: What is the year listed when tied is listed as 11? schema:  num_tables: 1 (table_name: table; table_cols: Year,Position,Games played,Won,Tied,Lost,Goals Scored,Goals Against,Points,Postseason place) 
+Output:  SELECT 'Year' FROM table WHERE 'Tied' = 11
+Input:  Translate text to SQL:  text: How many weeks have an attendance of 64,116? schema:  num_tables: 1 (table_name: table; table_cols: Week,Date,Opponent,Result,Venue,Attendance) 
+Output:  SELECT COUNT 'Week' FROM table WHERE 'Attendance' = '64,116'
+Input:  Translate text to SQL:  text: In which venue did 0 pens and 1 try occur? schema:  num_tables: 1 (table_name: table; table_cols: Player,Tries,Conv,Pens,Drop,Venue,Date) 
+Output:  SELECT 'Venue' FROM table WHERE 'Pens' = '0' AND 'Tries' = '1'
+Input:  Translate text to SQL:  text: On what date is Hawthorn the home team? schema:  num_tables: 1 (table_name: table; table_cols: Home team,Home team score,Away team,Away team score,Venue,Crowd,Date) 
+Output:  SELECT 'Date' FROM table WHERE 'Home team' = 'hawthorn'
+Input:  Translate text to SQL:  text: Which Result has a Score of 4-1, and a Competition of world cup qualifying? schema:  num_tables: 1 (table_name: table; table_cols: Date,Result,Score,Brazil scorers,Competition) 
+Output:  SELECT 'Result' FROM table WHERE 'Score' = '4-1' AND 'Competition' = 'world cup qualifying'
+Input:  Translate text to SQL:  text: What's the lowest Floors with Feet that's larger htan 262, has a Name of Standard Bank Building, and Metres that's larger htan 138.8? schema:  num_tables: 1 (table_name: table; table_cols: Name,City,Years as tallest,Metres,Feet,Floors) 
+Output:  SELECT MIN 'Floors' FROM table WHERE 'Feet' > 262 AND 'Name' = 'standard bank building' AND 'Metres' > 138.8
+Input:  Translate text to SQL:  text: Which Outcome has a Score of 6–4, 2–6, 6–3? schema:  num_tables: 1 (table_name: table; table_cols: Outcome,Date,Tournament,Surface,Opponent,Score) 
+Output:  SELECT 'Outcome' FROM table WHERE 'Score' = '6–4, 2–6, 6–3'
+Input:  Translate text to SQL:  text: Which Operator has a Width of 2.65 m, and a Type designation of m5000? schema:  num_tables: 1 (table_name: table; table_cols: City,Operator,Type designation,Number of vehicles,Width) 
+Output:  SELECT 'Operator' FROM table WHERE 'Width' = '2.65 m' AND 'Type designation' = 'm5000'
+Input:  Translate text to SQL:  text: What is the score of the game that 33,531 people went too? schema:  num_tables: 1 (table_name: table; table_cols: Date,Opponent,Score,Loss,Attendance,Record) 
+Output:  SELECT 'Score' FROM table WHERE 'Attendance' = '33,531'
+Input:  Translate text to SQL:  text: For which song was the score 6.5 + 6.0 + 6.0 + 5.5 = 24.0? schema:  num_tables: 1 (table_name: table; table_cols: Index,Name,Song,Group Song,Score) 
+Output:  SELECT 'Song' FROM table WHERE 'Score' = '6.5 + 6.0 + 6.0 + 5.5 = 24.0'
+Input:  Translate text to SQL:  text: Which nation's total is less than 19 when there's less than 1 bronze? schema:  num_tables: 1 (table_name: table; table_cols: Rank,Nation,Gold,Silver,Bronze,Total) 
+Output:  SELECT 'Nation' FROM table WHERE 'Total' < 19 AND 'Bronze' < 1
+Input:  Translate text to SQL:  text: What is the first locomotive that has a SLM number lower than 924? schema:  num_tables: 1 (table_name: table; table_cols: Built,Number,Type,SLM Number,Wheel arrangement,Location,Notes) 
+Output:  SELECT MIN 'Number' FROM table WHERE SLM 'Number' < 924
+Input:  Translate text to SQL:  text: What is the largest amount of top division titles featuring the tammeka club? schema:  num_tables: 1 (table_name: table; table_cols: Club,Position in 2012,First season in top division,Number of seasons in Meistriliiga,First season of current spell in top division,Top division titles) 
+Output:  SELECT MAX 'Top division titles' FROM table WHERE 'Club' = 'tammeka'
+Input:  Translate text to SQL:  text: What was the top score for grier jones? schema:  num_tables: 1 (table_name: table; table_cols: Place,Player,Country,Score,To par) 
+Output:  SELECT MAX 'Score' FROM table WHERE 'Player' = 'grier jones'
+Input:  Translate text to SQL:  text: What is the average pick for Princeton after round 3? schema:  num_tables: 1 (table_name: table; table_cols: Round,Pick,Player,Nationality,College) 
+Output:  SELECT AVG 'Pick' FROM table WHERE 'Round' > 3 AND 'College' = 'princeton'
+Input:  Translate text to SQL:  text: What is richard virenque's lowest rank? schema:  num_tables: 1 (table_name: table; table_cols: Rank,Name,Country,Wins,Years) 
+Output:  SELECT MIN 'Rank' FROM table WHERE 'Name' = 'richard virenque'
+Input:  Translate text to SQL:  text: What is the average number of matches of leonardo in seasons after 1? schema:  num_tables: 1 (table_name: table; table_cols: Name,Seasons,Matches,Win %,Draw,Draw %,Lose,Lose %) 
+Output:  SELECT AVG 'Matches' FROM table WHERE 'Name' = 'leonardo' AND 'Seasons' > 1
+Input:  Translate text to SQL:  text: What is the Area of the Parish with a Population of 2,113? schema:  num_tables: 1 (table_name: table; table_cols: Official Name,Status,Area km 2,Population,Census Ranking) 
+Output:  SELECT COUNT 'Area km 2' FROM table WHERE 'Population' = '2,113'
+Input:  Translate text to SQL:  text: What is the highest number of rebounds of the game with a 6-14 record? schema:  num_tables: 1 (table_name: table; table_cols: Game,Date,Opponent,Score,High points,High rebounds,High assists,Location/Attendance,Record) 
+Output:  SELECT 'High rebounds' FROM table WHERE 'Record' = '6-14'
+Input:  Translate text to SQL:  text: Who is the 2nd round opponent when Team 2 is Red Star (D1)? schema:  num_tables: 1 (table_name: table; table_cols: Team 1,Score,Team 2,1st round,2nd round) 
+Output:  SELECT '2nd round' FROM table WHERE 'Team 2' = 'red star (d1)'
+Input:  Translate text to SQL:  text: What class had 1 made and fleet number of 406? schema:  num_tables: 1 (table_name: table; table_cols: Class,Wheel arrangement,Fleet number(s),Manufacturer,Year made,Quantity made,Quantity preserved) 
+Output:  SELECT 'Class' FROM table WHERE 'Quantity made' = '1' AND 'Fleet number(s)' = '406'
+Input:  Translate text to SQL:  text: what is the event for the year less than 1913 with the position of 2nd? schema:  num_tables: 1 (table_name: table; table_cols: Year,Competition,Venue,Position,Event) 
+Output:  SELECT 'Event' FROM table WHERE 'Year' < 1913 AND 'Position' = '2nd'
+Input:  Translate text to SQL:  text: What Constructor had 66 Laps? schema:  num_tables: 1 (table_name: table; table_cols: Driver,Constructor,Laps,Time/Retired,Grid) 
+Output:  SELECT 'Constructor' FROM table WHERE 'Laps' = 66
+Input:  Translate text to SQL:  text: Name the polyunsaturated fat with a saturated fat of 25g schema:  num_tables: 1 (table_name: table; table_cols: Total fat,Saturated fat,Monounsaturated fat,Polyunsaturated fat,Smoke point) 
+Output:  SELECT 'Polyunsaturated fat' FROM table WHERE 'Saturated fat' = '25g'
+Input:  Translate text to SQL:  text: What away team plays at Victoria Park? schema:  num_tables: 1 (table_name: table; table_cols: Home team,Home team score,Away team,Away team score,Venue,Crowd,Date) 
+Output:  SELECT 'Away team' FROM table WHERE 'Venue' = 'victoria park'
+Input:  Translate text to SQL:  text: What was Collingwood's score at the home match against Richmond? schema:  num_tables: 1 (table_name: table; table_cols: Home team,Home team score,Away team,Away team score,Venue,Crowd,Date) 
+Output:  SELECT 'Home team score' FROM table WHERE 'Away team' = 'richmond'
+Input:  Translate text to SQL:  text: On waht date did Antoinette Jeanne Yvonne Boegner get married? schema:  num_tables: 1 (table_name: table; table_cols: Name,Birth,Marriage,Became Duke,Ceased to be Duke,Death,Spouse) 
+Output:  SELECT 'Marriage' FROM table WHERE 'Spouse' = 'antoinette jeanne yvonne boegner'
+Input:  Translate text to SQL:  text: When the Away team score equaled 15.20 (110) what was the Date of the game? schema:  num_tables: 1 (table_name: table; table_cols: Home team,Home team score,Away team,Away team score,Venue,Crowd,Date) 
+Output:  SELECT 'Date' FROM table WHERE 'Away team score' = '15.20 (110)'
+Input:  Translate text to SQL:  text: What is Party, when Results is "Re-Elected", when First Elected is greater than 1990, and when District is "Minnesota 4"? schema:  num_tables: 1 (table_name: table; table_cols: District,Incumbent,Party,First elected,Results) 
+Output:  SELECT 'Party' FROM table WHERE 'Results' = 're-elected' AND 'First elected' > 1990 AND 'District' = 'minnesota 4'
+Input:  Translate text to SQL:  text: Who is the winner in des moines, iowa where p.h. finkbank was the runner-up? schema:  num_tables: 1 (table_name: table; table_cols: Year,Winner,Runner-up,Venue,Location) 
+Output:  SELECT 'Winner' FROM table WHERE 'Location' = 'des moines, iowa' AND 'Runner-up' = 'p.h. finkbank'
+Input:  Translate text to SQL:  text: Which Score has a To par of –3, and a Player of santiago luna? schema:  num_tables: 1 (table_name: table; table_cols: Place,Player,Country,Score,To par) 
+Output:  SELECT 'Score' FROM table WHERE 'To par' = '–3' AND 'Player' = 'santiago luna'
+Input:  Translate text to SQL:  text: What 8:00 am has a 3:00 pm of space goofs (mon) spider-man (tue-fri)? schema:  num_tables: 1 (table_name: table; table_cols: 7:00 am,7:30 am,8:00 am,9:00 am,11:00 am,noon,12:30 pm,1:00 pm,1:30 pm,2:00 pm,3:00 pm,4:30 pm,5:00 pm,6:30 pm) 
+Output:  SELECT '8:00 am' FROM table WHERE '3:00 pm' = 'space goofs (mon) spider-man (tue-fri)'
+Input:  Translate text to SQL:  text: What is the height for the 2008 club Arona? schema:  num_tables: 1 (table_name: table; table_cols: Name,Height,Weight,Spike,2008 club) 
+Output:  SELECT 'Height' FROM table WHERE '2008 club' = 'arona'
+Input:  Translate text to SQL:  text: What is the team when the college is virginia tech? schema:  num_tables: 1 (table_name: table; table_cols: Pick,Team,Player,Position,College) 
+Output:  SELECT 'Team' FROM table WHERE 'College' = 'virginia tech'
+Input:  Translate text to SQL:  text: What is the latest year the world championships were held in Thun? schema:  num_tables: 1 (table_name: table; table_cols: Year,Place,Gold,Silver,Bronze) 
+Output:  SELECT MAX 'Year' FROM table WHERE 'Place' = 'thun'
+Input:  Translate text to SQL:  text: How many picks on average did Jay Bruchak have before round 6? schema:  num_tables: 1 (table_name: table; table_cols: Round,Pick,Player,Nationality,College) 
+Output:  SELECT AVG 'Pick' FROM table WHERE 'Player' = 'jay bruchak' AND 'Round' < 6
+Input:  Translate text to SQL:  text: Result of 1st, and a Venue of melbourne , australia, and a Extra of 100 m happened in which year? schema:  num_tables: 1 (table_name: table; table_cols: Year,Tournament,Venue,Result,Extra) 
+Output:  SELECT 'Year' FROM table WHERE 'Result' = '1st' AND 'Venue' = 'melbourne , australia' AND 'Extra' = '100 m'
+Input:  Translate text to SQL:  text: What is the highest Isolation (km) when the elevation was smaller than 1320, and a Municipality of hinnøya? schema:  num_tables: 1 (table_name: table; table_cols: Peak,Elevation (m),Prominence (m),Isolation (km),Municipality,County) 
+Output:  SELECT MAX 'Isolation (km)' FROM table WHERE 'Elevation (m)' < 1320 AND 'Municipality' = 'hinnøya'
+Input:  Translate text to SQL:  text: What's the Total for a Mexico City game with a Gold of less than 4 and a Bronze of less than 2? schema:  num_tables: 1 (table_name: table; table_cols: Year,Edition,Host city,Gold,Silver,Bronze,Total) 
+Output:  SELECT COUNT 'Total' FROM table WHERE 'Host city' = 'mexico city' AND 'Gold' < 4 AND 'Bronze' < 2
+Input:  Translate text to SQL:  text: Name the average apps for smederevo schema:  num_tables: 1 (table_name: table; table_cols: Season,Team,Country,Division,Apps,Goals) 
+Output:  SELECT AVG 'Apps' FROM table WHERE 'Team' = 'smederevo'
+Input:  Translate text to SQL:  text: What was Olin Dutra's score? schema:  num_tables: 1 (table_name: table; table_cols: Place,Player,Country,Score,To par,Money ( $ )) 
+Output:  SELECT 'Score' FROM table WHERE 'Player' = 'olin dutra'
+Input:  Translate text to SQL:  text: Name the power for 1.8 duratorq schema:  num_tables: 1 (table_name: table; table_cols: Model/Engine,Capacity,Cylinders/Valves,Power/rpm,Torque (Nm)/rpm) 
+Output:  SELECT 'Power/rpm' FROM table WHERE 'Model/Engine' = '1.8 duratorq'
+Input:  Translate text to SQL:  text: What position does the player who played for butler cc (ks) play? schema:  num_tables: 1 (table_name: table; table_cols: Player,No.,Nationality,Position,Years in Toronto,School/Club Team) 
+Output:  SELECT 'Position' FROM table WHERE 'School/Club Team' = 'Butler CC (KS)'
+Input:  Translate text to SQL:  text: Nagua has the area (km²) of? schema:  num_tables: 1 (table_name: table; table_cols: Province,Capital,Area (km²),Population,Density,Map region) 
+Output:  SELECT 'Area (km²)' FROM table WHERE 'Capital' = 'Nagua'
+Input:  Translate text to SQL:  text: How much were the f/laps if poles is higher than 1.0 during 2008? schema:  num_tables: 1 (table_name: table; table_cols: Season,Series,Team,Races,Wins,Poles,F/Laps,Podiums,Points,Position) 
+Output:  SELECT 'F/Laps' FROM table WHERE 'Poles' > 1.0 AND 'Season' = 2008
+Input:  Translate text to SQL:  text: What is the rank for ord/kord with more than 1,332,123 total cargo? schema:  num_tables: 1 (table_name: table; table_cols: Rank,Airport,Code (IATA/ICAO),Total Cargo (Metric Tonnes),% Change) 
+Output:  SELECT MIN 'Rank' FROM table WHERE 'Code (IATA/ICAO)' = 'ord/kord' AND 'Total Cargo (Metric Tonnes)' > '1,332,123'
+Input:  Translate text to SQL:  text: What is the event average for a top-25 smaller than 0? schema:  num_tables: 1 (table_name: table; table_cols: Tournament,Wins,Top-5,Top-10,Top-25,Events,Cuts made) 
+Output:  SELECT AVG 'Events' FROM table WHERE 'Top-25' < 0
+Input:  Translate text to SQL:  text: Which episode 4 has a Star of anna powierza? schema:  num_tables: 1 (table_name: table; table_cols: Star,Episode 2,Episode 3,Episode 4,Episode 5,Episode 6,Episode 7,Episode 8) 
+Output:  SELECT 'Episode 4' FROM table WHERE 'Star' = 'anna powierza'
+Input:  Translate text to SQL:  text: How many TDs are there were the long is smaller than 23? schema:  num_tables: 1 (table_name: table; table_cols: Player,Rec.,Yards,Avg.,TD's,Long) 
+Output:  SELECT MIN 'TD's' FROM table WHERE 'Long' < 23
+Input:  Translate text to SQL:  text: What Winning driver has a Name of mugello circuit? schema:  num_tables: 1 (table_name: table; table_cols: Name,Circuit,Date,Winning driver,Winning constructor,Report) 
+Output:  SELECT 'Winning driver' FROM table WHERE 'Name' = 'mugello circuit'
+Input:  Translate text to SQL:  text: Who were the Investing Dragons in the episode that first aired on 18 January 2005 with the entrepreneur Tracey Herrtage? schema:  num_tables: 1 (table_name: table; table_cols: Episode,First aired,Entrepreneur(s),Company or product name,Money requested (£),Investing Dragon(s)) 
+Output:  SELECT 'Investing Dragon(s)' FROM table WHERE 'First aired' = '18 january 2005' AND 'Entrepreneur(s)' = 'tracey herrtage'
+Finished preprocessing data...
+Loading model...
+Finished loading model...
+Starting training...
